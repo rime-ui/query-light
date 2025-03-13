@@ -9,6 +9,7 @@ interface QueryCacheType {
     build(key: string, value: CacheEntry): void;
     remove(key: string): void;
     clear(): void;
+    getAll(): void
 }
 
 
@@ -32,5 +33,9 @@ export class QueryCache implements QueryCacheType {
 
     public clear() {
         this.queries.clear();
+    }
+
+    public getAll() {
+        this.queries.forEach((value, key) => console.log(key, value));
     }
 }

@@ -11,15 +11,16 @@ type QueryOptions = {
 
 const cache = new QueryCache()
 
-export function useQueryLight<T>(queryKey: [string, string], queryFn: () => Promise<any>, options?: Partial<QueryOptions>) {
+
+export function useQueryLight<T>(queryKey: [string, string?], queryFn: () => Promise<any>, options?: Partial<QueryOptions>) {
     const [data, setData] = useState<T | null>(null);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [retries, setRetries] = useState<number>(0);
 
     const { staleTime = 0, retry = 0, retryDelay = 2000 } = options ?? {}
     const [keyName, keyValue] = queryKey
-    const queryHash = `${keyName}-${keyValue}`
+    const queryHash = keyValue ? `${keyName}-${keyValue}` : keyName
 
     const isFirstRender = useRef<boolean>(true)
 
@@ -35,6 +36,7 @@ export function useQueryLight<T>(queryKey: [string, string], queryFn: () => Prom
 
 
     console.log(queryHash)
+    cache.getAll()
     const queryFnHandler = useCallback(async () => {
 
         if (cache.get(queryHash)?.result) {
