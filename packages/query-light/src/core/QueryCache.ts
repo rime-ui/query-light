@@ -36,6 +36,6 @@ export class QueryCache implements QueryCacheType {
     }
 
     public getAll() {
-        this.queries.forEach((value, key) => console.log(key, value));
+        console.log(this.queries)
     }
 }

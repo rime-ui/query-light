@@ -8,8 +8,8 @@ type Todo = {
 }
 
 function App() {
-  const { data, isLoading, refetch, invalidateCurrentQuery } = useQueryLight<Todo>(["test"], async () => {
-    const res = await fetch("https://jsonplaceholder.typicode.com/todos/8")
+  const { data, isLoading, refetch, invalidateCurrentQuery } = useQueryLight<Todo>(["2"], async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos/2")
     const data = await res.json()
 
     return data
