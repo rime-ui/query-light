@@ -7,7 +7,7 @@ import { cache } from "./QueryLightProvider";
 
 type ReturnQueryClientOptions = {
     getQueries: () => any;
-    invalidateCurrentQueries: () => any
+    invalidateQueries: () => any
 
 }
 
@@ -17,7 +17,7 @@ export function queryClient(): ReturnQueryClientOptions {
         return cache.getAll()
     }
 
-    const invalidateCurrentQueries = (queryKey?: string[], callback?: (cache: QueryCacheType, queryKey: string) => any) => {
+    const invalidateQueries = (queryKey?: string[], callback?: (cache: QueryCacheType, queryKey: string) => any) => {
         const queryHash = queryKey?.join("-")
 
         if (!queryHash) throw new Error("queryKey is required!")
@@ -28,6 +28,6 @@ export function queryClient(): ReturnQueryClientOptions {
 
     return {
         getQueries,
-        invalidateCurrentQueries
+        invalidateQueries
     }
 }
