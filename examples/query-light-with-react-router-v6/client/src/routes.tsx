@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import SendMessagePage from "./SendMessagePage";
+import TodoPage from "./TodoPage";
 
 
 
@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
         element: <App />
     },
     {
-        path: "/send-msg",
-        element: <SendMessagePage />
+        path: "/todo/:id",
+        element: <TodoPage />
     }
 ])
