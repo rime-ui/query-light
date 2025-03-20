@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { QueryCache } from "./QueryCache";
-import { deepEqual } from "./utils";
+import { cache } from "./QueryLightProvider";
 
 type QueryOptions = {
     staleTime: number;
@@ -20,7 +20,6 @@ type ReturnOptions<T> = {
     invalidateCurrentQuery: () => void;
 };
 
-const cache = new QueryCache();
 
 export function useQueryLight<T>(
     queryKey: [string, string?],
@@ -37,6 +36,7 @@ export function useQueryLight<T>(
     } = options ?? {};
 
     const [data, setData] = useState<T | null>(() => {
+        console.log("init state func")
         const cachedData = cache.get(queryKey.join("-"))?.result;
         return cachedData ?? initialData;
     });
