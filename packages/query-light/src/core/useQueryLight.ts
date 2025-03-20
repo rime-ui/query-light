@@ -11,13 +11,22 @@ type QueryOptions = {
     initialData: any;
 };
 
+type ReturnOptions<T> = {
+    data: T | null;
+    error: any;
+    isLoading: boolean;
+    isError: boolean;
+    refetch: () => void;
+    invalidateCurrentQuery: () => void;
+};
+
 const cache = new QueryCache();
 
 export function useQueryLight<T>(
     queryKey: [string, string?],
     queryFn: () => Promise<T>,
     options?: Partial<QueryOptions>
-) {
+): ReturnOptions<T> {
     const {
         staleTime = 0,
         retry = 0,
@@ -128,5 +137,6 @@ export function useQueryLight<T>(
         isLoading,
         refetch: queryFnHandler,
         invalidateCurrentQuery: () => cache.remove(queryHash),
+        isError: !!error,
     };
 }

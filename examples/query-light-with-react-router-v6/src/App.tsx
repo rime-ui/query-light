@@ -1,9 +1,14 @@
 import { Link } from "react-router-dom"
-import { useQueryLight } from "../../../../packages/query-light/src"
+import { useQueryLight } from "../../../packages/query-light/src"
 import { Todo as TodoType } from "./types"
 import Todo from "./components/Todo"
 function App() {
-  const { data: todos, isLoading } = useQueryLight<TodoType[]>(["1"], () => fetch("https://jsonplaceholder.typicode.com/todos").then(res => res.json()))
+  const { data: todos, isLoading } = useQueryLight<TodoType[]>(["todos"], async () => {
+    const res = await fetch("https://jsonplaceholder.typicode.com/todos")
+    const data = await res.json()
+
+    return data
+  })
 
   if (isLoading) return <h1>Fetching todos...</h1>
 
@@ -12,7 +17,7 @@ function App() {
     <>
       <div>
         {
-          todos.map((todo) => <Todo key={todo.id} {...todo} />)
+          todos?.map((todo) => <Todo key={todo.id} {...todo} />)
         }
       </div>
 
