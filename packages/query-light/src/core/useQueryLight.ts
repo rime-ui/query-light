@@ -104,15 +104,20 @@ export function useQueryLight<T>(
 
         socket.onopen = () => console.log("WebSocket connected");
         socket.onmessage = (event) => {
-            try {
-                const receivedData = JSON.parse(event.data);
-                setData((prev) => (Array.isArray(prev) && Array.isArray(receivedData)
-                    ? [...prev, ...receivedData]
-                    : receivedData));
-            } catch (err) {
-                console.error("WebSocket data parsing error:", err);
+            if (typeof event.data === "string") {
+                const data = JSON.parse(event.data);
+
+                setData((prev) => {
+                    const currentData = Array.isArray(prev) ? prev : prev ? [prev] : [];
+                    const newData = Array.isArray(data) ? data : [data];
+                    const updatedData = [...currentData, ...newData] as unknown as T;
+
+                    cache.build(queryHash, { result: updatedData, timestamp: Date.now() });
+                    return updatedData;
+                });
             }
         };
+
 
         socket.onerror = (error) => console.error("WebSocket error:", error);
         socket.onclose = () => console.log("WebSocket closed");
