@@ -20,10 +20,9 @@ export function queryClient(): ReturnQueryClientOptions {
     const invalidateQueries = (queryKey?: string[], callback?: (cache: QueryCacheType, queryKey: string) => any) => {
         const queryHash = queryKey?.join("-")
 
-        if (!queryHash) throw new Error("queryKey is required!")
+        if (typeof callback === "undefined" && queryHash) return cache.remove(queryHash)
 
-        cache.remove(queryHash)
-        callback?.(cache, queryHash)
+        if (queryHash) callback?.(cache, queryHash)
     }
 
     return {

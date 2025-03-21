@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { QueryCache } from "./QueryCache";
 import { cache } from "./QueryLightProvider";
 
 type QueryOptions = {
@@ -19,6 +18,9 @@ type ReturnOptions<T> = {
     refetch: () => void;
     invalidateCurrentQuery: () => void;
 };
+
+
+if (!cache) throw new Error("QueryLightProvider not found");
 
 
 export function useQueryLight<T>(
