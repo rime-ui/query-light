@@ -9,7 +9,9 @@ const app = express();
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-mongoose.connect("mongodb://localhost:27017/chat").then(() => console.log("Connected to MongoDB"));
+mongoose.connect(
+    "mongodb://testApp:testApp@localhost:27017/chat"
+).then(() => console.log("Connected to MongoDB"));
 
 const MessageSchema = new mongoose.Schema({
     text: String,
