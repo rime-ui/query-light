@@ -19,7 +19,6 @@
         "format": "prettier --write \"**/*.{ts,tsx,md}\"",
         "check-types": "turbo run check-types"
     },
- 
     "devDependencies": {
         "@types/node": "^22.13.10",
         "prettier": "^3.5.3",
