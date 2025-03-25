@@ -1,1 +1,0 @@
-{"root":["./src/index.ts","./src/mutations.ts","./src/querycache.ts","./src/queryclient.ts","./src/retryer.ts","./src/types.ts","./src/utils.ts"],"version":"5.8.2"}

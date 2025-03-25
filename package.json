@@ -1,39 +1,27 @@
 {
-    "name": "query-light",
-    "private": true,
-    "version": "0.0.0",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "module": "dist/index.mjs",
-    "files": [
-        "/dist"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/rime-ui/query-light"
-    },
-    "scripts": {
-        "build": "turbo run build",
-        "dev": "turbo run dev",
-        "lint": "turbo run lint",
-        "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-        "check-types": "turbo run check-types"
-    },
-    "devDependencies": {
-        "@types/node": "^22.13.10",
-        "prettier": "^3.5.3",
-        "turbo": "^2.4.4",
-        "typescript": "5.8.2"
-    },
-    "keywords": [
-        "react",
-        "custom",
-        "hooks"
-    ],
-    "author": "Ahmed Hany",
-    "license": "MIT",
-    "packageManager": "pnpm@9.0.0",
-    "engines": {
-        "node": ">=18"
-    }
+  "name": "query-light-turbo",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rime-ui/query-light"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "prettier": "^3.5.3",
+    "turbo": "^2.4.4",
+    "typescript": "5.8.2"
+  },
+  "author": "Ahmed Hany",
+  "license": "MIT",
+  "packageManager": "pnpm@9.0.0",
+  "engines": {
+    "node": ">=18"
+  }
 }
