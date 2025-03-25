@@ -131,7 +131,15 @@ export function useQueryLight<T>(
   }, [isWebSocket, socketUrl]);
 
   useEffect(() => {
-    initRetryer({ error, handler: queryFnHandler, retries, retry, set: setRetries, retryDelay, retryIntervalId: retryIntervalId.current });
+    initRetryer({
+      error,
+      handler: queryFnHandler,
+      retries,
+      retry,
+      set: setRetries,
+      retryDelay,
+      retryIntervalId: retryIntervalId.current,
+    });
   }, [error, retries, retry, retryDelay, queryFnHandler]);
 
   return {

@@ -1,6 +1,5 @@
 import { MutationCacheType } from "./types";
 
-
 class MutationCache implements MutationCacheType {
   private mutations = new Map<string, any>();
   public get(key: string) {

@@ -15,7 +15,6 @@ export interface QueryClient {
   cache: QueryCacheType;
 }
 
-
 export interface MutationCacheType {
   get(key: string): any;
   set(key: string, value: any): void;
