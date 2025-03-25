@@ -1,1 +1,1 @@
-export * from "./query-light/src"
+export * from "./query-light-core";

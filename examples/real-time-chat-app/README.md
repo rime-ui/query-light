@@ -10,6 +10,7 @@ To run this server, you need to have the following installed on your machine:
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone <repository-url>
    cd <repository-directory>
@@ -23,6 +24,7 @@ To run this server, you need to have the following installed on your machine:
 ### Running the Server
 
 1. Start the MongoDB server if it's not already running. You can do this by executing:
+
    ```bash
    mongod
    ```
@@ -37,4 +39,3 @@ This will start the server on port 5050. You should see `Server running on port 
 ### Additional Configuration
 
 - Ensure that your MongoDB server is accessible at the URL specified in `mongoose.connect()` inside the `server.js` file. You may need to adjust this to fit your MongoDB configuration.
-

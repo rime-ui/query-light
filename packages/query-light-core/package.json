@@ -1,0 +1,15 @@
+{
+    "name": "query-light-core",
+    "version": "1.0.0",
+    "description": "The core of query-light",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc -b"
+    },
+    "keywords": [],
+    "author": "rime-ui",
+    "license": "ISC",
+    "devDependencies": {
+        "typescript": "^5.8.2"
+    }
+}
