@@ -13,7 +13,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "6",
-    "react-router-dom": "6"
+    "react-router-dom": "6",
+    "@rime-ui/react-query-light": "worksapce:*"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",

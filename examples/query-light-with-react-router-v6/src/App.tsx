@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useQueryLight } from "../../../packages/query-light/src";
 import { Todo as TodoType } from "./types";
 import Todo from "./components/Todo";
 function App() {

@@ -1,6 +1,7 @@
 export interface CacheEntry {
   result?: any;
   timestamp?: number;
+  mounted?: boolean;
 }
 
 export interface QueryCacheType {
@@ -9,6 +10,9 @@ export interface QueryCacheType {
   remove(key: string): void;
   clear(): void;
   getAll(): void;
+  size(): void
+  mount(): void
+  unmount(): void
 }
 
 export interface QueryClient {

@@ -1,10 +1,10 @@
-// import { cache } from "../../react-query-light/src/QueryLightProvider";
 // import { QueryCacheType } from "./types";
 
 // interface ReturnQueryClientOptions {
 //   getQueries: () => any;
 //   invalidateQueries: () => any;
 // }
+
 
 // export function queryClient(): ReturnQueryClientOptions {
 //   const getQueries = () => {

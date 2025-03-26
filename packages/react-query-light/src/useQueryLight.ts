@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { cache } from "./QueryLightProvider";
 import { initRetryer } from "query-light-core/build";
+import { useQueryCache } from "./QueryLightProvider";
 
 type QueryOptions = {
   staleTime: number;
@@ -20,8 +20,6 @@ type ReturnOptions<T> = {
   invalidateCurrentQuery: () => void;
 };
 
-if (!cache) throw new Error("QueryLightProvider not found");
-
 export function useQueryLight<T>(
   queryKey: [string, string?],
   queryFn: () => Promise<T>,
@@ -36,6 +34,7 @@ export function useQueryLight<T>(
     initialData = null,
   } = options ?? {};
 
+  const cache = useQueryCache()
   const [data, setData] = useState<T | null>(() => {
     console.log("init state func");
     const cachedData = cache.get(queryKey.join("-"))?.result;
