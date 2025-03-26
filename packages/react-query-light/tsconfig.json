@@ -1,7 +1,7 @@
 {
   "extends": "../typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "./dist-ts",
+    "outDir": "./build",
     "rootDir": "..",
     "baseUrl": "..",
     "jsx": "react-jsx",
