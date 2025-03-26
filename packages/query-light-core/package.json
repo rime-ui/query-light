@@ -2,7 +2,8 @@
     "name": "query-light-core",
     "version": "1.0.0",
     "description": "The core of query-light",
-    "main": "index.js",
+    "main": "build/index.js",
+    "types": "build/index.d.ts",
     "scripts": {
         "build": "tsc -b"
     },

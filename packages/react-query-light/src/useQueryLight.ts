@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect, useRef, useState } from "react";
 import { initRetryer } from "../../query-light-core/src/retryer";
 import { cache } from "./QueryLightProvider";

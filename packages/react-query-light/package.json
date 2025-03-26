@@ -1,14 +1,31 @@
 {
-    "name": "react-query-light",
-    "module": "index.tsx",
-    "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "devDependencies": {
-        "@types/react": "^19.0.12",
-        "@types/react-dom": "^19.0.4"
-    }
+  "name": "@rime-ui/react-query-light",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "keywords": [],
+  "author": "Ahmed Hany",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf ./build ./dist ./dist-ts",
+    "compile": "tsc -b",
+    "build": "tsup src/index.ts --dts --format esm,cjs"
+  },
+  "types": "",
+  "devDependencies": {
+    "@eslint-react/eslint-plugin": "^1.38.0",
+    "@types/react": "^19.0.12",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "eslint-plugin-react-compiler": "19.0.0-beta-aeaed83-20250323",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.37.0",
+    "tsup": "^8.4.0",
+    "vite": "^6.2.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "peerDependencies": {
+    "react": "^18 || ^19"
+  }
 }

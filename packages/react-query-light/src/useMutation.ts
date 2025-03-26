@@ -1,1 +1,3 @@
-export default function useMutation() {}
+
+export default function useMutation() {
+}

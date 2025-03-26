@@ -1,12 +1,13 @@
 {
-    "extends": "../../tsconfig.json",
-    "compilerOptions": {
-        "outDir": "./dist-ts",
-        "rootDir": ".",
-        "baseUrl": ".",
-        "jsx": "react-jsx",
-        "moduleResolution": "Bundler"
-    },
-    "include": ["src", "*.config.js", "*.config.ts", "package.json"],
-    "references": [{ "path": "../query-light-core" }]
+  "extends": "../typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "./dist-ts",
+    "rootDir": "..",
+    "baseUrl": "..",
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "Bundler"
+  },
+  "include": ["../query-light-core/src", "src", "package.json"],
+  "exclude": ["vite.config.ts", "*.config.ts"]
 }
