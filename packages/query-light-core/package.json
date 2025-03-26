@@ -1,16 +1,33 @@
 {
-    "name": "query-light-core",
-    "version": "1.0.0",
-    "description": "The core of query-light",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
-    "scripts": {
-        "build": "tsc -b"
+  "name": "@rime-ui/query-light-core",
+  "version": "1.0.0",
+  "description": "The core of query-light",
+  "scripts": {
+    "build": "tsc -b"
+  },
+  "keywords": [],
+  "author": "Ahmed Hany",
+  "license": "MIT",
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "exports": {
+    "import": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
     },
-    "keywords": [],
-    "author": "rime-ui",
-    "license": "ISC",
-    "devDependencies": {
-        "typescript": "^5.8.2"
-    }
+    "require": {
+      "types": "./build/index.d.ts.map",
+      "default": "./build/index.js.map"
+    },
+    "./package.json": "./package.json"
+  },
+  "sideEffects": false,
+  "files": [
+    "build",
+    "src"
+  ],
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
 }
