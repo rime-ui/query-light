@@ -40,9 +40,8 @@ export function useQueryLight<T>(
   } = options ?? {};
 
   const cache = useQueryCache()
-  console.log(cache)
+
   const [data, setData] = useState<T | null>(() => {
-    console.log("init state func");
     const cachedData = cache.get(queryKey.join("-"))?.result;
     return cachedData ?? initialData;
   });
@@ -63,14 +62,12 @@ export function useQueryLight<T>(
     if (staleTime > 0) {
       setTimeout(() => {
         cache.remove(queryHash);
-        console.log("Cache removed for", queryHash);
       }, staleTime);
     }
   }, [staleTime, queryHash]);
 
   const queryFnHandler = useCallback(async () => {
     if (cache.get(queryHash)?.result) {
-      console.log("Using cached data");
       setData(cache.get(queryHash)?.result);
       return;
     }
