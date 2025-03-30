@@ -1,5 +1,5 @@
 # TASKS TO DO
 
+- add prefetch on hover [ x ]
 - fetch in view only [ - ]
-- add prefetch on hover [ - ]
 - add on demand fetch [ - ]
