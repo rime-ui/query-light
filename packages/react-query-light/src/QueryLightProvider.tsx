@@ -11,7 +11,7 @@ export const useQueryCache = () => {
   return context;
 };
 
-export default function QueryLightProvider({
+export function QueryLightProvider({
   children,
   cache,
 }: {

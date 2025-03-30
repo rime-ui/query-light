@@ -57,6 +57,9 @@ importers:
 
   examples/query-light-with-react-router-v6:
     dependencies:
+      '@rime-ui/react-query-light':
+        specifier: workspace:*
+        version: link:../../packages/react-query-light
       react:
         specifier: ^19.0.0
         version: 19.0.0

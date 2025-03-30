@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Todo as TodoType } from "./types";
 import Todo from "./components/Todo";
+import { useQueryLight } from "@rime-ui/react-query-light";
 function App() {
   const { data: todos, isLoading } = useQueryLight<TodoType[]>(
     ["todos"],

@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
-import { useQueryLight } from "../../../../packages/query-light/src";
 import Todo from "./Todo";
+import { useQueryLight } from "@rime-ui/react-query-light";
 
 export default function TodoPage() {
   const { id } = useParams();
