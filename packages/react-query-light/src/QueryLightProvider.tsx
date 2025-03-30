@@ -18,6 +18,8 @@ export function QueryLightProvider({
   children: React.ReactNode;
   cache: QueryCacheType;
 }) {
+
+  console.log(cache)
   if (!cache) {
     throw new Error("QueryLightProvider requires a cache");
   }

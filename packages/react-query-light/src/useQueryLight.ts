@@ -18,12 +18,16 @@ type ReturnOptions<T> = {
   isError: boolean;
   refetch: () => void;
   invalidateCurrentQuery: () => void;
-};
+  prefetchProps: PrefetchProps
+}
+interface PrefetchProps {
+  onMouseEnter: () => void;
+}
 
 export function useQueryLight<T>(
-  queryKey: [string, string?],
+  queryKey: [string, any?],
   queryFn: () => Promise<T>,
-  options?: Partial<QueryOptions>,
+  options?: Partial<QueryOptions & { prefetch?: boolean }>,
 ): ReturnOptions<T> {
   const {
     staleTime = 0,
@@ -32,9 +36,11 @@ export function useQueryLight<T>(
     socketUrl = "",
     isWebSocket = false,
     initialData = null,
+    prefetch = false,
   } = options ?? {};
 
   const cache = useQueryCache()
+  console.log(cache)
   const [data, setData] = useState<T | null>(() => {
     console.log("init state func");
     const cachedData = cache.get(queryKey.join("-"))?.result;
@@ -42,7 +48,7 @@ export function useQueryLight<T>(
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(
-    !cache.get(queryKey.join("-")),
+    !cache.get(queryKey.join("-")) && !prefetch,
   );
   const [error, setError] = useState<string | null>(null);
   const [retries, setRetries] = useState<number>(0);
@@ -51,6 +57,7 @@ export function useQueryLight<T>(
   const isFirstRender = useRef<boolean>(true);
   const retryIntervalId = useRef<NodeJS.Timeout | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
+
 
   const handleStaleTime = useCallback(() => {
     if (staleTime > 0) {
@@ -85,6 +92,8 @@ export function useQueryLight<T>(
   }, [queryFn, queryHash]);
 
   useEffect(() => {
+    if (prefetch) return;
+
     queryFnHandler();
     handleStaleTime();
     isFirstRender.current = false;
@@ -141,6 +150,13 @@ export function useQueryLight<T>(
     });
   }, [error, retries, retry, retryDelay, queryFnHandler]);
 
+  const prefetchProps: PrefetchProps = {
+    onMouseEnter: () => {
+      if (cache.get(queryHash)) return;
+      queryFnHandler();
+    },
+  };
+
   return {
     data,
     error,
@@ -148,5 +164,6 @@ export function useQueryLight<T>(
     refetch: queryFnHandler,
     invalidateCurrentQuery: () => cache.remove(queryHash),
     isError: !!error,
+    prefetchProps
   };
 }

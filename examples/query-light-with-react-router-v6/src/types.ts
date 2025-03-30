@@ -3,4 +3,7 @@ export type Todo = {
   userId: number;
   isCompleted: boolean;
   title: string;
+  prefetchProps: {
+    onMouseEnter: () => void;
+  }
 };

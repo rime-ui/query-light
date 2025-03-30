@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import Todo from "./Todo";
 import { useQueryLight } from "@rime-ui/react-query-light";
 
+
+
 export default function TodoPage() {
   const { id } = useParams();
   const { data: todo, isLoading } = useQueryLight(["todo", id], async () => {
@@ -10,6 +12,8 @@ export default function TodoPage() {
 
     return data;
   });
+
+
 
   if (isLoading) return <h1>Fetching todo {id}...</h1>;
 
