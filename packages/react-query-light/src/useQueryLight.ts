@@ -50,7 +50,7 @@ export function useQueryLight<T>(
   });
 
   const [isLoading, setIsLoading] = useState<boolean>(
-    !cache.get(queryKey.join("-")) && !prefetch,
+    !cache.get(queryKey.join("-")) && enabled && !prefetch,
   );
   const [error, setError] = useState<string | null>(null);
   const [retries, setRetries] = useState<number>(0);

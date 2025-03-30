@@ -11,6 +11,10 @@ function App() {
 
       return data;
     },
+
+    {
+      enabled: true
+    }
   );
 
   if (isLoading) return <h1>Fetching todos...</h1>;
