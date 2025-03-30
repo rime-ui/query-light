@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { initRetryer } from "query-light-core/build";
 import { useQueryCache } from "./QueryLightProvider";
+import { initRetryer } from "query-light-core/src";
 
 type QueryOptions = {
   staleTime: number;

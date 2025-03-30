@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "The core of query-light",
   "scripts": {
-    "build": "tsc -b"
+    "build": "tsc -b --force"
   },
   "keywords": [],
   "author": "Ahmed Hany",
@@ -17,8 +17,8 @@
       "default": "./build/index.js"
     },
     "require": {
-      "types": "./build/index.d.ts.map",
-      "default": "./build/index.js.map"
+      "types": "./build/index.d.ts",
+      "default": "./build/index.cjs"
     },
     "./package.json": "./package.json"
   },
