@@ -9,6 +9,8 @@ type QueryOptions = {
   socketUrl: `ws://${string}`;
   isWebSocket: boolean;
   initialData: any;
+  prefetch: boolean;
+  enabled: boolean;
 };
 
 type ReturnOptions<T> = {
@@ -37,6 +39,7 @@ export function useQueryLight<T>(
     isWebSocket = false,
     initialData = null,
     prefetch = false,
+    enabled = true,
   } = options ?? {};
 
   const cache = useQueryCache()
@@ -59,6 +62,7 @@ export function useQueryLight<T>(
 
 
   const handleStaleTime = useCallback(() => {
+    if (staleTime === Infinity) return;
     if (staleTime > 0) {
       setTimeout(() => {
         cache.remove(queryHash);
@@ -67,6 +71,7 @@ export function useQueryLight<T>(
   }, [staleTime, queryHash]);
 
   const queryFnHandler = useCallback(async () => {
+    if (!enabled) return;
     if (cache.get(queryHash)?.result) {
       setData(cache.get(queryHash)?.result);
       return;
