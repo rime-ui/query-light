@@ -1,6 +1,6 @@
 import { MutationCacheType } from "./types";
 
-class MutationCache implements MutationCacheType {
+export class MutationCache implements MutationCacheType {
   private mutations = new Map<string, any>();
   public get(key: string) {
     return this.mutations.get(key);
@@ -17,5 +17,5 @@ class MutationCache implements MutationCacheType {
     this.mutations.clear();
   }
 
-  
+
 }
