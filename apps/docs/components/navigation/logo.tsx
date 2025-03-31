@@ -9,8 +9,8 @@ export function Logo() {
       <Image
         src={Settings.siteicon}
         alt={`${Settings.title} main logo`}
-        width={34}
-        height={34}
+        width={70}
+        height={70}
         loading="lazy"
         decoding="async"
       />

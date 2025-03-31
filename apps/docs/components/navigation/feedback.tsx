@@ -35,9 +35,10 @@ export default function RightSideBar({ slug, title }: SideBarEdit) {
             "text-sm text-neutral-800 dark:text-neutral-300/85 no-underline flex items-center"
           )}
         >
-          <LuArrowUpRight className="mr-1 w-4 h-4 inline-block" /> Edit page
+          <LuArrowUpRight className="mr-1 w-4 h-4 inline-block"  /> Edit page
         </Link>
       </div>
+      
     </div>
   )
 }

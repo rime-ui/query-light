@@ -18,15 +18,17 @@ export function Footer() {
           <div className="text-center hidden md:block">
             <Link
               className="font-semibold"
-              href="https://www.rubixstudios.com.au"
+              href="https://github.com/rimex3"
               target="_blank"
               rel="noopener noreferrer"
             >
               <Image
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Rubix Studios Logo"
-                width={30}
-                height={30}
+                width={70}
+                height={70}
+                draggable={false}
+                className="select-none"
               />
             </Link>
           </div>
