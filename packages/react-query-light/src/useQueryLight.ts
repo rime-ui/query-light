@@ -20,8 +20,9 @@ type ReturnOptions<T> = {
   isError: boolean;
   refetch: () => void;
   invalidateCurrentQuery: () => void;
-  prefetchProps: PrefetchProps
-}
+  prefetchProps: PrefetchProps;
+};
+
 interface PrefetchProps {
   onMouseEnter: () => void;
 }
@@ -42,7 +43,8 @@ export function useQueryLight<T>(
     enabled = true,
   } = options ?? {};
 
-  const cache = useQueryCache()
+  const cache = useQueryCache();
+  const abortControllerRef = useRef<AbortController | null>(null);
 
   const [data, setData] = useState<T | null>(() => {
     const cachedData = cache.get(queryKey.join("-"))?.result;
@@ -60,7 +62,6 @@ export function useQueryLight<T>(
   const retryIntervalId = useRef<NodeJS.Timeout | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
 
-
   const handleStaleTime = useCallback(() => {
     if (staleTime === Infinity) return;
     if (staleTime > 0) {
@@ -72,6 +73,14 @@ export function useQueryLight<T>(
 
   const queryFnHandler = useCallback(async () => {
     if (!enabled) return;
+
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort("Request canceled due to new request");
+    }
+
+    const abortController = new AbortController();
+    abortControllerRef.current = abortController;
+
     if (cache.get(queryHash)?.result) {
       setData(cache.get(queryHash)?.result);
       return;
@@ -82,16 +91,31 @@ export function useQueryLight<T>(
     }
 
     try {
-      const result = await queryFn();
-      cache.build(queryHash, { result, timestamp: Date.now() });
-      setData(result);
-      setError(null);
+      const promise = queryFn();
+
+      const abortPromise = new Promise((_, reject) => {
+        abortController.signal.addEventListener("abort", () => {
+          reject(new DOMException("Aborted", "AbortError"));
+        });
+      });
+
+      const result = await Promise.race([promise, abortPromise]);
+
+      if (!abortController.signal.aborted) {
+        cache.build(queryHash, { result, timestamp: Date.now() });
+        setData(result as T);
+        setError(null);
+      }
     } catch (err) {
-      setError(err as string);
+      if (!abortController.signal.aborted && (err as Error)?.name !== "AbortError") {
+        setError(err as string);
+      }
     } finally {
-      setIsLoading(false);
+      if (!abortController.signal.aborted) {
+        setIsLoading(false);
+      }
     }
-  }, [queryFn, queryHash]);
+  }, [queryFn, queryHash, enabled]);
 
   useEffect(() => {
     if (prefetch) return;
@@ -101,6 +125,10 @@ export function useQueryLight<T>(
     isFirstRender.current = false;
 
     return () => {
+      // Clean up: abort any pending request when component unmounts or dependencies change
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
       if (retryIntervalId.current) {
         clearInterval(retryIntervalId.current);
       }
@@ -166,6 +194,6 @@ export function useQueryLight<T>(
     refetch: queryFnHandler,
     invalidateCurrentQuery: () => cache.remove(queryHash),
     isError: !!error,
-    prefetchProps
+    prefetchProps,
   };
 }
