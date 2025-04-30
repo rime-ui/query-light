@@ -19,7 +19,6 @@ export function QueryLightProvider({
   cache: QueryCacheType;
 }) {
 
-  console.log(cache)
   if (!cache) {
     throw new Error("QueryLightProvider requires a cache");
   }
