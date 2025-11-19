@@ -1,6 +1,6 @@
 {
   "name": "@rime-ui/query-light",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "private": false,
   "description": "Meta package for Query Light — installs core + React bindings",
   "author": "Ahmed Hany",
