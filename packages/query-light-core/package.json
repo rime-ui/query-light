@@ -1,6 +1,6 @@
 {
   "name": "@rime-ui/query-light-core",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "description": "The core of Query Light — caching, FSM, retryer, WebSocket manager, GraphQL helpers.",
   "scripts": {
