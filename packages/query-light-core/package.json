@@ -1,20 +1,22 @@
 {
-  "name": "@rime-ui/query-light-core",
+  "name": "@rime-ui/query-light-main-core",
   "version": "1.0.2",
   "private": false,
   "description": "The core of Query Light — caching, FSM, retryer, WebSocket manager, GraphQL helpers.",
   "scripts": {
-    "build": "tsc -b --force"
+    "build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist"
   },
   "author": "Ahmed Hany",
   "license": "MIT",
   "type": "module",
-  "main": "./build/index.js",
-  "types": "./build/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./build/index.js",
-      "types": "./build/index.d.ts"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   },

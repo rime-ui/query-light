@@ -5,10 +5,9 @@
     "target": "ES2022",
     "declaration": true,
     "outDir": "dist",
-    "baseUrl": "./",
-    "paths": {
-      "*": ["src/*"]
-    }
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "strict": true
   },
   "include": ["src"]
 }

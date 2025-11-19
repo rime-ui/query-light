@@ -1,15 +1,14 @@
 {
-  "extends": "../typescript-config/base.json",
   "compilerOptions": {
-    "outDir": "./build",
-    "rootDir": "..",
-    "jsx": "react-jsx",
-    "module": "esnext",
-    "moduleResolution": "Bundler",
-    "paths": {
-      "@rime-ui/query-light-core": ["../query-light-core/src"]
-    }
+    "jsx": "react",
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "declaration": true,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
-  "include": ["../query-light-core/src", "src", "package.json"],
-  "exclude": ["vite.config.ts", "*.config.ts"]
+  "include": ["src"]
 }

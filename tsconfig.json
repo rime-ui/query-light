@@ -28,12 +28,14 @@
     "strict": true,
     "target": "ES2020",
     "paths": {
-      "@rime-ui/query-light-core": ["./packages/query-light-core/src"],
+      "@rime-ui/query-light-main-core": [
+        "./packages/query-light-main-core/src"
+      ],
       "@rime-ui/react-query-light": ["./packages/react-query-light/src"]
     }
   },
   "exclude": [
-    "packages/query-light-core/build",
+    "packages/query-light-main-core/build",
     "packages/react-query-light/dist",
     "scripts/getViteAliases.d.ts"
   ]

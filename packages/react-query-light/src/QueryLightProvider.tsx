@@ -1,4 +1,4 @@
-import { QueryCacheType } from "@rime-ui/query-light-core";
+import { QueryCacheType } from "@rime-ui/query-light-main-core";
 import React, { createContext, useContext, useEffect } from "react";
 
 const QueryCacheContext = createContext<QueryCacheType | null>(null);

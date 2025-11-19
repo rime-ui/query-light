@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useQueryLight } from "@rime-ui/react-query-light";
+import { useQueryLight } from "@rime-ui/query-light";
 import { TodoType } from "./TodoPage";
 
 

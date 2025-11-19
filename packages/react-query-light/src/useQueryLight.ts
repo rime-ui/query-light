@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useQueryCache } from "./QueryLightProvider";
-import { initRetryer, type QueryKey } from "@rime-ui/query-light-core";
+import { initRetryer, type QueryKey } from "@rime-ui/query-light-main-core";
 import { getWebSocketManager } from "./websocketManager";
 import { createInitialQueryState, queryReducer } from "./queryStateMachine";
 import type { QueryStatus } from "./queryStateMachine";

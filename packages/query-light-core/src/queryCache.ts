@@ -1,4 +1,4 @@
-import { CacheEntry, QueryCacheType } from "./types.js";
+import { CacheEntry, QueryCacheType } from "./types";
 
 export class QueryCache implements QueryCacheType {
   private queries: Map<string, CacheEntry<unknown>> = new Map();

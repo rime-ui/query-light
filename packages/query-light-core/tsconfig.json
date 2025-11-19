@@ -1,20 +1,13 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "NodeNext",
-    "lib": ["ES2020", "DOM"],
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
     "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./build",
-    "rootDir": "./src",
-    "composite": true,
-    "moduleResolution": "NodeNext",
+    "outDir": "dist",
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
-    "forceConsistentCasingInFileNames": true
+    "allowSyntheticDefaultImports": true,
+    "strict": true
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "build"]
+  "include": ["src"]
 }

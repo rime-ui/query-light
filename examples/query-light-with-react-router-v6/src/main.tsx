@@ -2,7 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Outlet, RouterProvider } from "react-router-dom";
 import { router } from "./routes.tsx";
-import { QueryCache, QueryLightProvider } from "@rime-ui/react-query-light";
+import { QueryCache, QueryLightProvider } from "@rime-ui/query-light";
 
 const cache = new QueryCache()
 

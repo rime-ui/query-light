@@ -57,9 +57,9 @@ importers:
 
   examples/query-light-with-react-router-v6:
     dependencies:
-      '@rime-ui/react-query-light':
-        specifier: workspace:*
-        version: link:../../packages/react-query-light
+      '@rime-ui/query-light':
+        specifier: ^2.0.5
+        version: 2.0.5(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -145,12 +145,12 @@ importers:
 
   packages/query-light:
     dependencies:
-      '@rime-ui/query-light-core':
-        specifier: workspace:*
-        version: link:../query-light-core
+      '@rime-ui/query-light-main-core':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@rime-ui/react-query-light':
-        specifier: workspace:*
-        version: link:../react-query-light
+        specifier: ^1.0.3
+        version: 1.0.3(react@19.1.0)
 
   packages/query-light-core:
     dependencies:
@@ -160,9 +160,9 @@ importers:
 
   packages/react-query-light:
     dependencies:
-      '@rime-ui/query-light-core':
-        specifier: 1.0.1
-        version: 1.0.1
+      '@rime-ui/query-light-main-core':
+        specifier: ^1.0.2
+        version: 1.0.2
       react:
         specifier: ^18 || ^19
         version: 19.0.0
@@ -648,8 +648,19 @@ packages:
     resolution: {integrity: sha512-O3rHJzAQKamUz1fvE0Qaw0xSFqsA/yafi2iqeE0pvdFtCO1viYx8QL6f3Ln/aCCTLxs68SLf0KPM9eSeM8yBnA==}
     engines: {node: '>=14.0.0'}
 
-  '@rime-ui/query-light-core@1.0.1':
-    resolution: {integrity: sha512-Dx3Suk12QbasQeoiTFwhsqztzndRdXtRysiKz2MsvnOe7AsMrADRNk3E9fjjOUM9kxJEt81zalSzWze3hTZGIQ==}
+  '@rime-ui/query-light-main-core@1.0.1':
+    resolution: {integrity: sha512-8FH8butWrcxy/zgNhRQditfNvH00akki4Q2oZ4wd59IVG/7lzHDEH5Jk+5Zp3dpWY84etOJftHAP9zDq0I92IA==}
+
+  '@rime-ui/query-light-main-core@1.0.2':
+    resolution: {integrity: sha512-mL2tEhLB7idmP3k/pmaE6QM+byZS/PHpZ1vt6yYriwB5T+SU895zmiYuvX9h+hgLD2ojN82FbjOY/1e0+LOU+Q==}
+
+  '@rime-ui/query-light@2.0.5':
+    resolution: {integrity: sha512-9e7fb4H1e/IsvmFq7xbKgJ7oempkvi+fDg6tfWKVqoInpeb/XJBivWJ+uECafqnMvS3/7Q/vcIXXnBLsKAYMmw==}
+
+  '@rime-ui/react-query-light@1.0.3':
+    resolution: {integrity: sha512-EiSwadaEQjoyl+uqzjtc6d5R5ojSyG0e+ecyoeLj3FEbqwvTVhpL+4mc56lI9VNdPfHjFj1JrV+PrwxJh414jQ==}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@rollup/rollup-android-arm-eabi@4.37.0':
     resolution: {integrity: sha512-l7StVw6WAa8l3vA1ov80jyetOAEo1FtHvZDbzXDO/02Sq/QVvqlHkYoFwDJPIMj0GKiistsBudfx5tGFnwYWDQ==}
@@ -2733,9 +2744,30 @@ snapshots:
 
   '@remix-run/router@1.23.0': {}
 
-  '@rime-ui/query-light-core@1.0.1':
+  '@rime-ui/query-light-main-core@1.0.1':
     dependencies:
       graphql: 16.12.0
+
+  '@rime-ui/query-light-main-core@1.0.2':
+    dependencies:
+      graphql: 16.12.0
+
+  '@rime-ui/query-light@2.0.5(react@19.0.0)':
+    dependencies:
+      '@rime-ui/query-light-main-core': 1.0.2
+      '@rime-ui/react-query-light': 1.0.3(react@19.0.0)
+    transitivePeerDependencies:
+      - react
+
+  '@rime-ui/react-query-light@1.0.3(react@19.0.0)':
+    dependencies:
+      '@rime-ui/query-light-main-core': 1.0.1
+      react: 19.0.0
+
+  '@rime-ui/react-query-light@1.0.3(react@19.1.0)':
+    dependencies:
+      '@rime-ui/query-light-main-core': 1.0.1
+      react: 19.1.0
 
   '@rollup/rollup-android-arm-eabi@4.37.0':
     optional: true

@@ -26,7 +26,9 @@
     "baseUrl": "./",
     "paths": {
       "@rime-ui/react-query-light": ["../../packages/react-query-light/src"],
-      "@rime-ui/query-light-core": ["../../packages/query-light-core/src"]
+      "@rime-ui/query-light-main-core": [
+        "../../packages/query-light-main-core/src"
+      ]
     }
   },
   "include": ["src"]

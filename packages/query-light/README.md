@@ -11,7 +11,7 @@ Query Light is a minimalistic, finite‑state‑machine‑driven library for:
 
 It is split into:
 
-- `@rime-ui/query-light-core` – framework‑agnostic cache, retryer, and utilities.
+- `@rime-ui/query-light-main-core` – framework‑agnostic cache, retryer, and utilities.
 - `@rime-ui/react-query-light` – React bindings (`QueryLightProvider`, `useQueryLight`).
 
 ## Installation

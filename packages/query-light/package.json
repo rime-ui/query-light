@@ -1,21 +1,30 @@
 {
   "name": "@rime-ui/query-light",
-  "version": "2.0.0",
+  "version": "2.0.5",
   "private": false,
   "description": "Meta package for Query Light — installs core + React bindings",
   "author": "Ahmed Hany",
   "license": "MIT",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsup src/index.ts --dts --format esm,cjs --out-dir dist"
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "files": [
     "dist"
   ],
   "dependencies": {
-    "@rime-ui/query-light-core": "workspace:*",
-    "@rime-ui/react-query-light": "workspace:*"
-  },
-  "scripts": {
-    "build": "tsup src/index.ts --dts --format esm,cjs"
+    "@rime-ui/query-light-main-core": "^1.0.2",
+    "@rime-ui/react-query-light": "^1.0.3"
   }
 }

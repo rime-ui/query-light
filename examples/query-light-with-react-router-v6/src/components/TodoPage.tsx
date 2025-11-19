@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import Todo from "./Todo";
-import { useQueryLight } from "@rime-ui/react-query-light";
+import { useQueryLight } from "@rime-ui/query-light";
 
 
 export type TodoType = {
