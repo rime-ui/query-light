@@ -1,13 +1,12 @@
 {
   "name": "@rime-ui/react-query-light",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [],
+  "version": "1.0.1",
+  "private": false,
+  "description": "React bindings for Query Light — useQueryLight, useMutationLight, QueryLightProvider",
   "author": "Ahmed Hany",
   "license": "MIT",
   "scripts": {
-    "clean": "rimraf ./build ./dist ./dist-ts",
-    "compile": "tsc -b",
+    "clean": "rimraf ./dist",
     "build": "tsup src/index.ts --dts --format esm,cjs"
   },
   "type": "module",
@@ -19,30 +18,20 @@
       "import": "./dist/index.js",
       "require": "./dist/index.cjs",
       "types": "./dist/index.d.ts"
-    },
-    "./package.json": "./package.json"
+    }
   },
   "sideEffects": false,
   "files": [
-    "dist",
-    "build"
+    "dist"
   ],
   "dependencies": {
-    "@rime-ui/query-light-core": "workspace:*"
-  },
-  "devDependencies": {
-    "@eslint-react/eslint-plugin": "^1.38.0",
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint-plugin-react-compiler": "19.0.0-beta-aeaed83-20250323",
-    "rimraf": "^6.0.1",
-    "rollup": "^4.37.0",
-    "tsup": "^8.4.0",
-    "vite": "^6.2.3",
-    "vite-tsconfig-paths": "^5.1.4"
+    "@rime-ui/query-light-core": "1.0.1"
   },
   "peerDependencies": {
     "react": "^18 || ^19"
+  },
+  "devDependencies": {
+    "@types/react": "19",
+    "@types/react-dom": "19"
   }
 }

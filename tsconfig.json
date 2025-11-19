@@ -5,6 +5,7 @@
     "allowSyntheticDefaultImports": true,
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
+    "outDir": "dist",
     "checkJs": true,
     "composite": true,
     "declaration": true,
