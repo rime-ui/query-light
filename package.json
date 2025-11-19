@@ -1,6 +1,7 @@
 {
-  "name": "query-light-turbo",
-  "private": true,
+  "name": "query-light",
+  "version": "1.0.0",
+  "private": false,
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",

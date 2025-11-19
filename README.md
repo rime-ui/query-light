@@ -17,9 +17,9 @@ It is split into:
 ## Installation
 
 ```sh
-npm install @rime-ui/query-light-core @rime-ui/react-query-light
+npm install query-light
 # or
-pnpm add @rime-ui/query-light-core @rime-ui/react-query-light
+pnpm add query-light
 ```
 
 ## Features
