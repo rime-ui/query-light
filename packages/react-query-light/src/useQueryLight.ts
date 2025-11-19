@@ -1,37 +1,47 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import { useQueryCache } from "./QueryLightProvider";
-import { initRetryer } from "query-light-core/src";
+import { initRetryer, type QueryKey } from "@rime-ui/query-light-core";
+import { getWebSocketManager } from "./websocketManager";
+import { createInitialQueryState, queryReducer } from "./queryStateMachine";
+import type { QueryStatus } from "./queryStateMachine";
 
 type QueryOptions = {
   staleTime: number;
   retry: number;
   retryDelay: number;
-  socketUrl: `ws://${string}`;
+  socketUrl: string;
   isWebSocket: boolean;
   initialData: any;
-  prefetch: boolean;
   enabled: boolean;
 };
 
-type ReturnOptions<T> = {
-  data: T | null;
-  error: any;
+type UseQueryLightReturn<T> = {
+  /**
+   * Always typed as the resolved query data. Guard with `isLoading` / `isError`
+   * before using in order to avoid runtime null values.
+   */
+  data: T;
+  /**
+   * Access to the nullable shape in case you need to differentiate explicitly.
+   */
+  dataOrNull: T | null;
+  error: unknown;
   isLoading: boolean;
   isError: boolean;
+  status: QueryStatus;
   refetch: () => void;
   invalidateCurrentQuery: () => void;
-  prefetchProps: PrefetchProps;
 };
 
-interface PrefetchProps {
-  onMouseEnter: () => void;
-}
-
-export function useQueryLight<T>(
-  queryKey: [string, any?],
-  queryFn: () => Promise<T>,
-  options?: Partial<QueryOptions & { prefetch?: boolean }>,
-): ReturnOptions<T> {
+export function useQueryLight<
+  TData = unknown,
+  TQueryFn extends () => Promise<TData> = () => Promise<TData>,
+  TKey extends QueryKey = QueryKey,
+>(
+  queryKey: TKey,
+  queryFn: TQueryFn,
+  options?: Partial<QueryOptions>,
+): UseQueryLightReturn<TData> {
   const {
     staleTime = 0,
     retry = 0,
@@ -39,28 +49,35 @@ export function useQueryLight<T>(
     socketUrl = "",
     isWebSocket = false,
     initialData = null,
-    prefetch = false,
     enabled = true,
   } = options ?? {};
 
   const cache = useQueryCache();
-  const abortControllerRef = useRef<AbortController | null>(null);
-
-  const [data, setData] = useState<T | null>(() => {
-    const cachedData = cache.get(queryKey.join("-"))?.result;
-    return cachedData ?? initialData;
-  });
-
-  const [isLoading, setIsLoading] = useState<boolean>(
-    !cache.get(queryKey.join("-")) && enabled && !prefetch,
-  );
-  const [error, setError] = useState<string | null>(null);
-  const [retries, setRetries] = useState<number>(0);
-
   const queryHash = queryKey.join("-");
-  const isFirstRender = useRef<boolean>(true);
+
+  const latestQueryFn = useRef<TQueryFn>(queryFn);
+  useEffect(() => {
+    latestQueryFn.current = queryFn;
+  }, [queryFn]);
+
+  const cachedEntry = cache.get<TData>(queryHash);
+
+  const [state, dispatch] = useReducer(
+    queryReducer<TData>,
+    createInitialQueryState<TData>(
+      ((cachedEntry?.result as TData | undefined) ?? (initialData as TData | null)) ?? null,
+      enabled && !cachedEntry,
+    ),
+  );
+
+  const { data, error, status } = state;
+
+  const isLoading = status === "loading";
+  const isError = status === "error";
+
+  const abortControllerRef = useRef<AbortController | null>(null);
+  const [retries, setRetries] = useState<number>(0);
   const retryIntervalId = useRef<NodeJS.Timeout | null>(null);
-  const socketRef = useRef<WebSocket | null>(null);
 
   const handleStaleTime = useCallback(() => {
     if (staleTime === Infinity) return;
@@ -69,7 +86,24 @@ export function useQueryLight<T>(
         cache.remove(queryHash);
       }, staleTime);
     }
-  }, [staleTime, queryHash]);
+  }, [staleTime, queryHash, cache]);
+
+  useEffect(() => {
+    if (!cache.subscribe) return;
+
+    const unsubscribe = cache.subscribe<TData>(
+      queryHash,
+      (entry: { result?: TData } | null) => {
+        if (!entry) {
+          dispatch({ type: "INVALIDATE", initialData: (initialData as TData | null) ?? null });
+          return;
+        }
+        dispatch({ type: "RESOLVE", data: (entry.result ?? null) as TData });
+      },
+    );
+
+    return unsubscribe;
+  }, [cache, queryHash, initialData]);
 
   const queryFnHandler = useCallback(async () => {
     if (!enabled) return;
@@ -81,17 +115,16 @@ export function useQueryLight<T>(
     const abortController = new AbortController();
     abortControllerRef.current = abortController;
 
-    if (cache.get(queryHash)?.result) {
-      setData(cache.get(queryHash)?.result);
+    const cached = cache.get<TData>(queryHash);
+    if (cached?.result) {
+      dispatch({ type: "RESOLVE", data: cached.result as TData });
       return;
     }
 
-    if (isFirstRender.current) {
-      setIsLoading(true);
-    }
+    dispatch({ type: "FETCH" });
 
     try {
-      const promise = queryFn();
+      const promise = latestQueryFn.current() as Promise<TData>;
 
       const abortPromise = new Promise((_, reject) => {
         abortController.signal.addEventListener("abort", () => {
@@ -99,30 +132,22 @@ export function useQueryLight<T>(
         });
       });
 
-      const result = await Promise.race([promise, abortPromise]);
+      const result = (await Promise.race([promise, abortPromise])) as TData;
 
       if (!abortController.signal.aborted) {
         cache.build(queryHash, { result, timestamp: Date.now() });
-        setData(result as T);
-        setError(null);
+        dispatch({ type: "RESOLVE", data: result });
       }
     } catch (err) {
       if (!abortController.signal.aborted && (err as Error)?.name !== "AbortError") {
-        setError(err as string);
-      }
-    } finally {
-      if (!abortController.signal.aborted) {
-        setIsLoading(false);
+        dispatch({ type: "REJECT", error: err });
       }
     }
-  }, [queryFn, queryHash, enabled]);
+  }, [queryHash, enabled, cache]);
 
   useEffect(() => {
-    if (prefetch) return;
-
     queryFnHandler();
     handleStaleTime();
-    isFirstRender.current = false;
 
     return () => {
       // Clean up: abort any pending request when component unmounts or dependencies change
@@ -138,35 +163,30 @@ export function useQueryLight<T>(
   useEffect(() => {
     if (!isWebSocket || !socketUrl) return;
 
-    const socket = new WebSocket(socketUrl);
-    socketRef.current = socket;
+    const manager = getWebSocketManager();
 
-    socket.onopen = () => console.log("WebSocket connected");
-    socket.onmessage = (event) => {
-      if (typeof event.data === "string") {
-        const data = JSON.parse(event.data);
+    const handler = (event: MessageEvent) => {
+      if (typeof event.data !== "string") return;
 
-        setData((prev) => {
-          const currentData = Array.isArray(prev) ? prev : prev ? [prev] : [];
-          const newData = Array.isArray(data) ? data : [data];
-          const updatedData = [...currentData, ...newData] as unknown as T;
+      const parsed = JSON.parse(event.data) as unknown;
 
-          cache.build(queryHash, {
-            result: updatedData,
-            timestamp: Date.now(),
-          });
-          return updatedData;
-        });
-      }
+      const current = cache.get<TData>(queryHash)?.result;
+      const currentData = Array.isArray(current) ? current : current != null ? [current] : [];
+      const incoming = Array.isArray(parsed) ? parsed : [parsed];
+      const updated = [...currentData, ...incoming] as unknown as TData;
+
+      cache.build<TData>(queryHash, {
+        result: updated,
+        timestamp: Date.now(),
+      });
     };
 
-    socket.onerror = (error) => console.error("WebSocket error:", error);
-    socket.onclose = () => console.log("WebSocket closed");
+    const unsubscribe = manager.subscribe(socketUrl, handler, { retry, retryDelay });
 
     return () => {
-      socket.close();
+      unsubscribe();
     };
-  }, [isWebSocket, socketUrl]);
+  }, [isWebSocket, socketUrl, cache, queryHash, retry, retryDelay]);
 
   useEffect(() => {
     initRetryer({
@@ -180,20 +200,16 @@ export function useQueryLight<T>(
     });
   }, [error, retries, retry, retryDelay, queryFnHandler]);
 
-  const prefetchProps: PrefetchProps = {
-    onMouseEnter: () => {
-      if (cache.get(queryHash)) return;
-      queryFnHandler();
-    },
-  };
+  const nullableData = (data ?? null) as TData | null;
 
   return {
-    data,
+    data: nullableData as TData,
+    dataOrNull: nullableData,
     error,
     isLoading,
+    status,
     refetch: queryFnHandler,
     invalidateCurrentQuery: () => cache.remove(queryHash),
-    isError: !!error,
-    prefetchProps,
+    isError,
   };
 }

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { Todo as TodoType } from "./types";
 import Todo from "./components/Todo";
 import { useQueryLight } from "@rime-ui/react-query-light";
@@ -24,8 +23,6 @@ function App() {
       <div>{todos?.map((todo) => <Todo key={todo.id} {...todo} />)}</div>
 
       <br />
-
-      <Link to={"/send-msg"}>Go send page</Link>
     </>
   );
 }

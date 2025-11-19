@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
-import { Todo as TodoType } from "../types";
 import { useQueryLight } from "@rime-ui/react-query-light";
+import { TodoType } from "./TodoPage";
 
 
 
 export default function Todo({ id, isCompleted, title, userId }: TodoType) {
-  const { prefetchProps } = useQueryLight(["todo", id], async () => {
+  useQueryLight(["todo", id], async () => {
     const res = await fetch(`https://jsonplaceholder.typicode.com/todos/${id}`);
     const data = await res.json();
 
     return data;
-  }, { prefetch: true });
+  });
 
 
   return (
@@ -21,7 +21,7 @@ export default function Todo({ id, isCompleted, title, userId }: TodoType) {
 
       <p>User ID: {userId}</p>
 
-      <Link {...prefetchProps} to={`/todo/${id}`}>View Todo</Link>
+      <Link to={`/todo/${id}`}>View Todo</Link>
 
       <hr />
     </div>

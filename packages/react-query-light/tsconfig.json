@@ -3,10 +3,12 @@
   "compilerOptions": {
     "outDir": "./build",
     "rootDir": "..",
-    "baseUrl": "..",
     "jsx": "react-jsx",
     "module": "esnext",
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@rime-ui/query-light-core": ["../query-light-core/src"]
+    }
   },
   "include": ["../query-light-core/src", "src", "package.json"],
   "exclude": ["vite.config.ts", "*.config.ts"]
