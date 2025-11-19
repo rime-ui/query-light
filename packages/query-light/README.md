@@ -1,5 +1,8 @@
 # Query Light
 
+[![npm](https://img.shields.io/npm/v/@rime-ui/query-light)](https://www.npmjs.com/package/@rime-ui/query-light)
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-black?logo=github)](https://github.com/rime-ui/query-light)
+
 ## Overview
 
 Query Light is a minimalistic, finite‑state‑machine‑driven library for:

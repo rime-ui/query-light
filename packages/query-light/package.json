@@ -2,7 +2,7 @@
   "name": "@rime-ui/query-light",
   "version": "2.0.5",
   "private": false,
-  "description": "Meta package for Query Light — installs core + React bindings",
+  "description": "Query Light — minimalistic, FSM-driven library for data fetching, caching, mutations, WebSockets; includes React bindings and a core framework-agnostic package.",
   "author": "Ahmed Hany",
   "license": "MIT",
   "type": "module",
@@ -26,5 +26,25 @@
   "dependencies": {
     "@rime-ui/query-light-main-core": "^1.0.2",
     "@rime-ui/react-query-light": "^1.0.3"
+  },
+  "keywords": [
+    "query",
+    "react",
+    "typescript",
+    "state-machine",
+    "rime-ui",
+    "lightweight",
+    "caching",
+    "mutation",
+    "websocket",
+    "data-fetching"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rime-ui/query-light.git"
+  },
+  "homepage": "https://github.com/rime-ui/query-light",
+  "bugs": {
+    "url": "https://github.com/rime-ui/query-light/issues"
   }
 }
