@@ -3,7 +3,7 @@ import {
   QueryCache,
   useQueryLight,
   createGraphQLQuery,
-} from "@rime-ui/react-query-light";
+} from "@rime-ui/query-light";
 
 type Country = {
   code: string;

@@ -29,9 +29,9 @@ importers:
 
   examples/query-light-graphql:
     dependencies:
-      '@rime-ui/react-query-light':
-        specifier: workspace:*
-        version: link:../../packages/react-query-light
+      '@rime-ui/query-light':
+        specifier: ^2.0.5
+        version: 2.0.5(react@19.1.0)
       react:
         specifier: ^19.0.0
         version: 19.1.0
@@ -2756,6 +2756,13 @@ snapshots:
     dependencies:
       '@rime-ui/query-light-main-core': 1.0.2
       '@rime-ui/react-query-light': 1.0.3(react@19.0.0)
+    transitivePeerDependencies:
+      - react
+
+  '@rime-ui/query-light@2.0.5(react@19.1.0)':
+    dependencies:
+      '@rime-ui/query-light-main-core': 1.0.2
+      '@rime-ui/react-query-light': 1.0.3(react@19.1.0)
     transitivePeerDependencies:
       - react
 
