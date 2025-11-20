@@ -20,9 +20,9 @@ It is split into:
 ## Installation
 
 ```sh
-npm install query-light
+npm install @rime-ui/query-light
 # or
-pnpm add query-light
+pnpm add @rime-ui/query-light
 ```
 
 ## Features
